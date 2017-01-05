@@ -1,0 +1,13 @@
+
+function sortTextElementsAfterTranslation(selectElement){
+   bablic.watch(selectElement.get(0),function(){
+      var items = $('option',parent);
+      selectElement.empty();
+      items.sort(function(a,b) {
+          return $(a).text().trim().toLowerCase().localeCompare($(b).text().trim().toLowerCase());
+      });
+      selectElement.append(items);
+   });
+}
+
+sortTextElementAfterTranslation($('#sortedSelectBox'));

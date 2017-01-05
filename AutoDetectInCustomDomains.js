@@ -4,8 +4,7 @@
  */
 
 
-
-	var detectBrowserLocale = function () {
+var detectBrowserLocale = function () {
 		var language = navigator.userLanguage || navigator.language;
 		if (!language)
 			return null;
@@ -29,14 +28,18 @@
 			}
 			else {
 			    bablic.on('beforeLocaleChange',function(targetLocale){
-					var targetHref = location.pathname + location.search + location.hash;					
-					if(targetHref.indexOf('?') > -1)
-						targetHref += '&locale=' + targetLocale;
+					var search = location.search || '';
+					search = search.replace(/&?locale=\w\w(_\w\w)?/g,'');
+					if(search == '?')
+						search = '';
+					if(search.indexOf('?') > -1)
+						search += '&locale=' + targetLocale;
 					else
-						targetHref += '?locale=' + targetLocale;
-					history.replaceState(null,null,targetHref);
+						search += '?locale=' + targetLocale;
+					history.replaceState(null,null,search + (location.hash || ''));
 				});
 			}			
 		});
 	};
 	bablicRedirect();
+

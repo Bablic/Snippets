@@ -1,3 +1,9 @@
+/** This code must run before Bablic Snippet
+ *  It is meant for users who use custom domains, but still wants to redirect first time users to their browser language
+ *
+ */
+
+
 
 	var detectBrowserLocale = function () {
 		var language = navigator.userLanguage || navigator.language;

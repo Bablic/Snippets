@@ -13,29 +13,21 @@
 	};
 
 	var bablicRedirect = function() {
-    // dont redirect for crawlers
 		var isBot = navigator && navigator.userAgent && /bot|crawler|baiduspider|facebookexternalhit|Twitterbot|80legs|mediapartners-google|adsbot-google|seo/i.test(navigator.userAgent);
 		if (isBot)
 			return;
 
+		var savedCookie = document.cookie;
 		document.addEventListener('bablicload',function() {
 			var locale = detectBrowserLocale();
 			if(!locale) return;
 			var domain = bablic.data.customUrls[locale];
 			if(!domain) return;
 			domain = domain.split('/')[0];
-			if (location.hostname!=domain){
-         // redirect is needed, only if url not explictly says locale, or cookie says
-				var currentSearch = location.search;
-				if (currentSearch && currentSearch.indexOf('locale=') > -1)
-					return;
-				if (document.cookie && document.cookie.indexOf('bab_locale') > -1)
-					return;
-
-				location.href = location.protocol + '//'+ domain + location.pathname + currentSearch;				
+			if(location.hostname!=domain && !(location.search && location.search.indexOf('locale=') > -1) && !(savedCookie &&  savedCookie.indexOf('bab_locale') > -1)){
+				location.href = location.protocol + '//'+ domain + location.pathname + location.search;				
 			}
 			else {
-          // before user changes a language, make sure locale string is a part of the URL (to prevent back redirects)
 			    bablic.on('beforeLocaleChange',function(targetLocale){
 					var targetHref = location.pathname + location.search + location.hash;					
 					if(targetHref.indexOf('?') > -1)

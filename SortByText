@@ -1,13 +1,19 @@
 
-function sortTextElementsAfterTranslation(selectElement){
+function sortTextElementsAfterTranslation(){
+   var selectElement = $(this);
+   // register to translation changes on the parent element
    bablic.watch(selectElement.get(0),function(){
-      var items = $('option',parent);
-      selectElement.empty();
+      // get items to sort
+      var items = $('option',selectElement);
+      // remove items from parent, without loosing their events and data
+      items.detach();
+      // sort the item list
       items.sort(function(a,b) {
           return $(a).text().trim().toLowerCase().localeCompare($(b).text().trim().toLowerCase());
       });
+      // add back to the parent element
       selectElement.append(items);
    });
 }
 
-sortTextElementAfterTranslation($('#sortedSelectBox'));
+$('#sortedSelectBox').each(sortTextElementAfterTranslation);

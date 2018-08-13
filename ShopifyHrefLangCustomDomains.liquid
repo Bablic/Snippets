@@ -1,0 +1,4 @@
+{% assign url_parts = canonical_url | split: request.host %}
+<link rel='alternate' href='{{ url_parts[0] }}es.yourwebsite.com{{ url_parts[1] }}' hreflang='es-ES'>
+<link rel='alternate' href='{{ url_parts[0] }}fr.yourwebsite.com{{ url_parts[1] }}' hreflang='fr-FR'>
+<link rel='alternate' href='{{ url_parts[0] }}{{ request.host }}{{ url_parts[1] }}' hreflang='x-default'>

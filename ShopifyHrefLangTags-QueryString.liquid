@@ -1,0 +1,5 @@
+{% assign url_parts = canonical_url | split: request.host %}
+{% assign path_parts = url_parts[1] | split: '?' %}
+<link rel='alternate' href='{{ url_parts[0] }}{{ request.host }}{{ path_parts[0] }}?locale=es{{ path_parts[1] }}' hreflang='es-ES'>
+<link rel='alternate' href='{{ url_parts[0] }}{{ request.host }}{{ path_parts[0] }}?locale=fr{{ path_parts[1] }}' hreflang='fr-FR'>
+<link rel='alternate' href='{{ url_parts[0] }}{{ request.host }}{{ path_parts[0] }}?locale=en{{ path_parts[1] }}' hreflang='x-default'>
